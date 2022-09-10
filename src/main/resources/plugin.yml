@@ -1,0 +1,4 @@
+name: TimingPlugin
+version: '${project.version}'
+main: xiamomc.timingplugin.TimingPlugin
+api-version: 1.19
