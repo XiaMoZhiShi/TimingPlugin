@@ -1,11 +1,9 @@
 package xiamomc.timingplugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.*;
 
 import java.time.Instant;
 
@@ -19,13 +17,16 @@ public class ScoreboardHandler {
     );
 
     public ScoreboardHandler(){
+        obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+        long timestamp = Instant.now().getEpochSecond();
+        Score unixTimestamp = obj.getScore("UnixTimestamp");
+        unixTimestamp.setScore((int) timestamp);
         new BukkitRunnable() {
             @Override
             public void run() {
                 long timestamp = Instant.now().getEpochSecond();
-                Score unixTimestamp = obj.getScore("UnixTimestamp");
                 unixTimestamp.setScore((int) timestamp);
             }
-        }.runTaskTimerAsynchronously(TimingPlugin.instance, 0, 1);
+        }.runTaskTimer(TimingPlugin.instance, 0, 1);
     }
 }
